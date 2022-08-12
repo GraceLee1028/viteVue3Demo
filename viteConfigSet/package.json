@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",
-    "preview": "vite preview --port 8089"
+    "preview": "vite preview --port 8089",
+    "package":""
   },
   "dependencies": {
     "vue": "^3.2.37"

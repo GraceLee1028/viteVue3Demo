@@ -9,6 +9,7 @@ document.querySelector('body')!.className = classes.textRed;
 
 <template>
   <div>
+    <image-shadow></image-shadow>
     <a href="https://vitejs.dev" target="_blank">
       <img src="/vite.svg" class="logo" alt="Vite logo" />
     </a>
