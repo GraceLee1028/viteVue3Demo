@@ -82,7 +82,28 @@ const modules = {
 }
 ```
 > 自带： css 代码分割  
+> CSS前缀
+```
+# 安装
+npm i autoprefixer postcss -D
 
+# 配置vite.config.js
+
+# postcss.config.js
+
+```
+>打包生成环境移除console和debugger
+```
+build:{
+  // 生产环境移除console
+  terserOptions:{
+    compress:{
+      drop_console:true,
+      drop_debugger:true
+    }
+  }
+}
+```
 > 插件
 - `@vitejs/plugin-legacy：为打包后的文件提供传统浏览器兼容性支持【就是不支持module引入的浏览器，通过nomodule方式】`
 ```

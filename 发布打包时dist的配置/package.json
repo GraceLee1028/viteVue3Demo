@@ -1,0 +1,12 @@
+{
+  "name": "lee-ui",
+  "version": "1.0.0",
+  "description": "图片翻转",
+  "main": "lee-ui.es.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

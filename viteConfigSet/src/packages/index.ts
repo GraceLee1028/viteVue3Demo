@@ -1,6 +1,7 @@
 import {App} from 'vue';
 import ImageShadow from './ImageShadow'
-const components = [ImageShadow]
+import BeautyButton from './BeautyButton'
+const components = [ImageShadow,BeautyButton]
 
 export default {
   install(app:App,options:any){
