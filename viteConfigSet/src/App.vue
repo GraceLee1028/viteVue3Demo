@@ -11,8 +11,13 @@ document.querySelector('body')!.className = classes.textRed;
     <beauty-button type="primary" class="hover-double-line"></beauty-button><br/>
     
     <beauty-button class="hover-bg-white top-bottom"></beauty-button>
+    <beauty-button class="hover-bg-white top-bottom top"></beauty-button>
+    <beauty-button class="hover-bg-white top-bottom bottom"></beauty-button>
+    <br/>
     <beauty-button class="hover-bg-white left-right"></beauty-button>
     <beauty-button class="hover-bg-white left-right left"></beauty-button>
+    <beauty-button class="hover-bg-white left-right right"></beauty-button>
+
     <br/>
 
     

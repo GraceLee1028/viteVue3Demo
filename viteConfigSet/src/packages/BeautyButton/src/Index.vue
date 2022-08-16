@@ -111,15 +111,44 @@
           transform: translateX(0);
         }
       }
+      &.right{
+        &::after{
+          left:auto;
+          right:0;
+          top:0;
+          transform: translateX(0);
+        }
+      }
+      &.top{
+        &::after{
+          top:0;
+          left:0;
+          transform: translateY(0);
+        }
+      }
+      &.bottom{
+        &::after{
+          top:auto;
+          bottom: 0;
+          left:0;
+          transform: translateY(0);
+        }
+      }
       &:hover{
         color:var(--primary-color);
         &.top-bottom::after{
           opacity: 1;
           height:80%;
         }
+        &.top::after,&.bottom::after{
+          height:100%;
+        }
         &.left-right::after{
           opacity: 1;
           width:97%;
+        }
+        &.left::after,&.right::after{
+          width:100%;
         }
       }
     }
