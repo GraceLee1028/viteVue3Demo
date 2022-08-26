@@ -82,7 +82,7 @@ const modules = {
 }
 ```
 > 自带： css 代码分割  
-> CSS前缀
+> CSS前缀【当前处理不正确，待解决】
 ```
 # 安装
 npm i autoprefixer postcss -D
@@ -92,7 +92,7 @@ npm i autoprefixer postcss -D
 # postcss.config.js
 
 ```
->打包生成环境移除console和debugger
+> 打包生成环境移除console和debugger
 ```
 build:{
   // 生产环境移除console
@@ -103,6 +103,26 @@ build:{
     }
   }
 }
+```
+> 路由vue-router
+```
+# 安装依赖
+npm install vue-router@4
+
+# 创建文件【router文件夹》index.ts文件,index.ts代码如下：】
+import {createRouter,createWebHashHistory} from 'vue-router'
+const CommonRoutes = [
+  {path:'/',component:import("@/views/common/401.vue")},
+]
+
+function getRouter(){
+  return createRouter({
+    history:createWebHashHistory(),//采用hash模式
+    routes:CommonRoutes
+  })
+}
+const router = getRouter()
+export default router
 ```
 > 插件
 - `@vitejs/plugin-legacy：为打包后的文件提供传统浏览器兼容性支持【就是不支持module引入的浏览器，通过nomodule方式】`

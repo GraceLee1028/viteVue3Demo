@@ -21,7 +21,7 @@ export default defineConfig({
 
   css:{
     postcss:{
-      plugins:[],
+      plugins:[autoprefixer],
     },
     //引入全局样式
     preprocessorOptions:{
