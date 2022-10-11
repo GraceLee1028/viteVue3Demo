@@ -81,6 +81,10 @@ const modules = {
   './dir/bar.js': () => import('./dir/bar.js')
 }
 ```
+> public目录
+- 不会被源码引用
+- 必须保持原有文件名
+- 在开发时，直接通过/根路径访问；【public中的资源不被javascript文件引用】
 > 自带： css 代码分割  
 > CSS前缀【当前处理不正确，待解决】
 ```
@@ -150,6 +154,7 @@ plugins: [
   vue(),
 ],
 ```
+- ``
 - `@types/node：使用import {resolve} from 'path';时，报错提示找不到path模块，安装该模块`
 ```
 # 安装依赖
@@ -157,7 +162,7 @@ npm add -D @types/node
 
 # 使用
 import {resolve} from "path";
-# 配置
+# 配置别名
 resolve:{
     alias: [{ find: '@', replacement: resolve(__dirname, 'src') }]
 },
@@ -167,3 +172,66 @@ resolve:{
 - `@vitejs/plugin-legacy：为打包后的文件提供传统浏览器兼容性支持`
 
 
+> 构建优化
+- `CSS代码分割`
+- `预加载指令生成`
+- `异步chunk优化`
+
+> 打包
+- 需要在嵌套的公共路径下【/myweb】部署项目,`由JS引入引入的资源URL,CSS中的url()以及.html文件中引用的资源在构建过程中都会自动调整`
+```
+# package.json文件里面调整配置
+
+"scripts": {
+    "build": "vue-tsc --noEmit && vite build --base=/myweb",
+  },
+```
+> 外部引入
+- vue
+```
+  #在html页面添加代码
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+  # 在vite.config.js的配置
+  //自定义构建
+    rollupOptions:{
+      //确保外部化处理那些不想打包进库的依赖
+      external:['vue'],
+      output:{
+        // 在 UMD 构建模式下为这些外部化的依赖提供一个全局变量
+        globals: {
+          vue: 'Vue'
+          //(import xxx from aaa);此处的aaa就是vue;Vue来自于vue.js文件提供的Vue变量
+        }
+      }
+    }
+  # 提交了全局变量Vue【需要配合安装插件使用】
+  npm i -D rollup-plugin-external-globals
+  # vite.config.js中配置
+  import externalGlobals from "rollup-plugin-external-globals";
+  # 把上面的改成
+  plugin:{
+
+  },
+  rollupOptions:{
+      //确保外部化处理那些不想打包进库的依赖
+      external:['vue'],
+      plugins:[
+
+      ],
+      output:{
+        // 在 UMD 构建模式下为这些外部化的依赖提供一个全局变量
+        globals: {
+          vue: 'Vue'
+          //(import xxx from aaa);此处的aaa就是vue;Vue来自于vue.js文件提供的Vue变量
+        }
+      }
+    }
+
+```
+> 3. vite的新特性
+- 1. 模块热更新【无需重新加载页面】
+- 2. 天然支持.ts文件【可以更加项目需要配置[tsconfig.json]文件】
+- 3. 天然支持css【sass\less需要安装内容，上面有相关说明】
+- 4. 支持CSS modules【任何通过`.module.css`为后缀的css文件都被认为是一个CSS modules 文件，使用方法说明如上】
+- 5. 支持解析图片、字体、视频、js、json等媒体文件的引入【特殊文件类型需要安装依赖，如上说明】

@@ -3,8 +3,9 @@ import path from 'path';
 import vue from '@vitejs/plugin-vue';
 //为打包后的文件提供传统浏览器兼容性支持
 import legacy from '@vitejs/plugin-legacy';
+import externalGlobals from "rollup-plugin-external-globals";
 //前缀
-import autoprefixer from 'autoprefixer';
+// import autoprefixer from 'autoprefixer';
 // https://vitejs.dev/config/
 export default defineConfig({
   base:'./',
@@ -21,7 +22,7 @@ export default defineConfig({
 
   css:{
     postcss:{
-      plugins:[autoprefixer],
+      // plugins:[autoprefixer],
     },
     //引入全局样式
     preprocessorOptions:{
@@ -41,6 +42,22 @@ export default defineConfig({
       compress:{
         drop_console:true,
         drop_debugger:true
+      }
+    },
+    //自定义构建
+    rollupOptions:{
+      //确保外部化处理那些不想打包进库的依赖
+      external:['vue'],
+      plugins:[
+        externalGlobals({
+          vue:'Vue'
+        })
+      ],
+      output:{
+        // 在 UMD 构建模式下为这些外部化的依赖提供一个全局变量
+        globals: {
+          vue: 'Vue'
+        }
       }
     }
   }

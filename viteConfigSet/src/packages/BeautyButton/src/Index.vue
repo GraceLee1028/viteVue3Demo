@@ -14,12 +14,12 @@
     },
     computed:{
       getColor(){
-        const colorObj = {
+        const colorObj:any = {
           'primary':'#6666FF',
           'success':'#009966',
           'danger':'#FF6666'
         };
-        const color:string= colorObj[<string>this.type||'primary'];
+        const color:string= colorObj[this.type||'primary'];
         return color;
       }
     }
