@@ -5,7 +5,7 @@ import vue from '@vitejs/plugin-vue';
 import legacy from '@vitejs/plugin-legacy';
 import externalGlobals from "rollup-plugin-external-globals";
 //前缀
-// import autoprefixer from 'autoprefixer';
+import autoprefixer from 'autoprefixer';
 // https://vitejs.dev/config/
 export default defineConfig({
   base:'./',
@@ -22,9 +22,9 @@ export default defineConfig({
 
   css:{
     postcss:{
-      // plugins:[autoprefixer],
+      plugins:[autoprefixer],
     },
-    //引入全局样式
+    //引入全局样式【指定传递给 CSS 预处理器的选项】
     preprocessorOptions:{
       scss:{
         // additionalData:"@import './assets/style/mixin.scss'"
@@ -58,6 +58,17 @@ export default defineConfig({
         globals: {
           vue: 'Vue'
         }
+      }
+    }
+  },
+  //服务器选项
+  server:{
+    //自定义代理规则
+    proxy:{
+      '^/upapi':{
+        target:'http://192.168.29.186:21056',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/upapi/, '')
       }
     }
   }

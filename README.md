@@ -89,12 +89,17 @@ const modules = {
 > CSS前缀【当前处理不正确，待解决】
 ```
 # 安装
-npm i autoprefixer postcss -D
+npm i autoprefixer  -D
 
 # 配置vite.config.js
-
-# postcss.config.js
-
+# 引入
+import autoprefixer from 'autoprefixer';
+# 使用
+css:{
+    postcss:{
+      plugins:[autoprefixer],
+    },
+}
 ```
 > 打包生成环境移除console和debugger
 ```
@@ -128,6 +133,45 @@ function getRouter(){
 const router = getRouter()
 export default router
 ```
+> pinia（代替vuex的使用）
+
+```
+# 安装依赖
+npm install pinia
+
+# 创建文件【pinia文件夹》index.ts文件,index.ts代码如下：】
+import { defineStore } from "pinia";
+
+export const  logicStore = defineStore('logic',{
+  state:()=>{
+    return {
+      endPage:0,
+    }
+  },
+  getters:{
+    getEndPage():number{
+      return this.endPage
+    }
+
+  },
+  actions:{
+    setEndPage(page:number){
+      this.endPage = page;
+    }
+  }
+})
+
+# 在项目入口main.js文件中引入
+import { createApp } from 'vue'
+import { createPinia } from 'pinia'
+const app = createApp(App);
+app.use(createPinia()).mount('#app')
+
+#在使用的.ts文件中使用，代码如下
+import {logicStore} from '@/pinia/logic'
+const logic = logicStore()
+console.log(logic.getEndPage)
+```
 > 插件
 - `@vitejs/plugin-legacy：为打包后的文件提供传统浏览器兼容性支持【就是不支持module引入的浏览器，通过nomodule方式】`
 ```
@@ -150,6 +194,7 @@ npm add -S vue
 npm add -D @vitejs/plugin-vue
 
 # 使用配置
+import vue from '@vitejs/plugin-vue';
 plugins: [
   vue(),
 ],
